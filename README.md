@@ -4,23 +4,29 @@ This project implements a Nature-Inspired Computation pipeline using Deep Learni
 
 ## Algorithms Used
 
-### Phase 1: Hyperparameter Optimization
-- Particle Swarm Optimization (PSO)
-- Simulated Annealing (SA)
-- Ant Colony Optimization (ACO)
-- Tabu Search (TS)
-- Grey Wolf Optimizer (GWO)
-- Whale Optimization Algorithm (WOA)
+### Deep Learning Model
+- **Transformer Encoder**: Custom implementation with Multi-Head Attention and Feed-Forward Networks.
+- **Positional Encoding**: Sinusoidal positional encodings to inject sequence order information.
 
-### Phase 2: XAI Optimization
-- Hill Climbing (HC) for PSO parameter tuning
-- Firefly Algorithm (FA) for SA parameter tuning
+### Phase 1: Hyperparameter Optimization (Metaheuristics)
+- **Particle Swarm Optimization (PSO)**
+- **Simulated Annealing (SA)**
+- **Ant Colony Optimization (ACO)**
+- **Tabu Search (TS)**
+- **Grey Wolf Optimizer (GWO)**
+- **Whale Optimization Algorithm (WOA)**
 
-### XAI Specific Optimizers
-- PSO for LIME parameters
-- SA for LIME parameters
-- Tabu Search for LIME parameters
-- ACO for LIME parameters
+### Phase 2: Optimizer Parameter Tuning (Meta-Optimization)
+- **Hill Climbing (HC)**: Used to optimize PSO parameters (`w`, `c1`, `c2`).
+- **Firefly Algorithm (FA)**: Used to optimize SA parameters (`temperature`, `cooling_rate`).
+
+### Phase 3: Explainable AI (XAI)
+- **LIME (Local Interpretable Model-agnostic Explanations)**: For generating local explanations of model predictions.
+- **XAI Optimizers**: The following algorithms are used to optimize LIME parameters (`num_features`, `num_samples`) for stability:
+    - PSO
+    - SA
+    - Tabu Search
+    - ACO
 
 ## Setup
 
