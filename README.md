@@ -2,13 +2,15 @@
 
 This project implements a Nature-Inspired Computation pipeline using Deep Learning (Transformers) and various Metaheuristic algorithms for Hyperparameter Optimization and Explainable AI (XAI).
 
-## Algorithms Used
+## Dataset
+- **Name**: AG News (Text Classification)
+- **Size**: ~20,000 Training Samples, 2,000 Validation Samples (High-dimensional NLP dataset).
+- **Goal**: Classify news articles into 4 categories (World, Sports, Business, Sci/Tech).
 
-### Deep Learning Model
-- **Transformer Encoder**: Custom implementation with Multi-Head Attention and Feed-Forward Networks.
-- **Positional Encoding**: Sinusoidal positional encodings to inject sequence order information.
+## Project Pipeline & Algorithms
 
-### Phase 1: Hyperparameter Optimization (Metaheuristics)
+### Phase 1: Model Parameter Optimization (Step 1)
+Tune hyperparameters (embedding size, layers, heads, etc.) of the Transformer model using 6 metaheuristics:
 - **Particle Swarm Optimization (PSO)**
 - **Simulated Annealing (SA)**
 - **Ant Colony Optimization (ACO)**
@@ -16,17 +18,21 @@ This project implements a Nature-Inspired Computation pipeline using Deep Learni
 - **Grey Wolf Optimizer (GWO)**
 - **Whale Optimization Algorithm (WOA)**
 
-### Phase 2: Optimizer Parameter Tuning (Meta-Optimization)
-- **Hill Climbing (HC)**: Used to optimize PSO parameters (`w`, `c1`, `c2`).
-- **Firefly Algorithm (FA)**: Used to optimize SA parameters (`temperature`, `cooling_rate`).
+*(Note: Step 2 Feature Selection was excluded as per instructions)*
 
-### Phase 3: Explainable AI (XAI)
-- **LIME (Local Interpretable Model-agnostic Explanations)**: For generating local explanations of model predictions.
-- **XAI Optimizers**: The following algorithms are used to optimize LIME parameters (`num_features`, `num_samples`) for stability:
-    - PSO
-    - SA
-    - Tabu Search
-    - ACO
+### Phase 2: Parameter & Explainability Optimization
+
+#### Step 3: Algorithm Parameter Tuning (Meta-Optimization)
+Optimize the internal parameters of the optimizers themselves:
+- **Hill Climbing (HC)**: Optimizes PSO parameters (`w`, `c1`, `c2`).
+- **Firefly Algorithm (FA)**: Optimizes SA parameters (`temperature`, `cooling_rate`).
+
+#### Step 4: Explainability Optimization (XAI)
+Optimize **LIME** parameters (`num_features`, `num_samples`) to enhance the stability of explanations using 4 metaheuristics:
+- **PSO**
+- **SA**
+- **Tabu Search**
+- **ACO**
 
 ## Setup
 
