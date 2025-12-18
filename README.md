@@ -18,7 +18,6 @@ Tune hyperparameters (embedding size, layers, heads, etc.) of the Transformer mo
 - **Grey Wolf Optimizer (GWO)**
 - **Whale Optimization Algorithm (WOA)**
 
-*(Note: Step 2 Feature Selection was excluded as per instructions)*
 
 ### Phase 2: Parameter & Explainability Optimization
 
