@@ -143,6 +143,57 @@ def main():
     comparison_df = comparison_df.sort_values('Validation Accuracy (%)', ascending=False)
     print(comparison_df.to_string(index=False))
 
+    # Visualization
+    try:
+        import matplotlib.pyplot as plt
+        print("\n--- Generating Comparison Plot ---")
+        fig, axes = plt.subplots(1, 2, figsize=(16, 5))
+
+        # Accuracy comparison
+        methods = list(final_results.keys())
+        accuracies = [final_results[m]['accuracy'] for m in methods]
+
+        # Color palette
+        colors = ['#2E86AB', '#A23B72', '#F18F01', '#C73E1D', '#6A994E', '#9B59B6', '#1ABC9C']
+        bars = axes[0].bar(methods, accuracies, color=colors[:len(methods)], alpha=0.8, edgecolor='black')
+
+        axes[0].set_ylabel('Validation Accuracy (%)', fontsize=12, fontweight='bold')
+        axes[0].set_title('Transformer Model Performance Comparison', fontsize=14, fontweight='bold')
+        if accuracies:
+            axes[0].set_ylim([min(accuracies) - 2, max(accuracies) + 2])
+        axes[0].grid(axis='y', alpha=0.3, linestyle='--')
+        axes[0].tick_params(axis='x', rotation=25)
+
+        # Add value labels on bars
+        for bar in bars:
+            height = bar.get_height()
+            axes[0].text(bar.get_x() + bar.get_width()/2., height,
+                        f'{height:.2f}%',
+                        ha='center', va='bottom', fontweight='bold', fontsize=9)
+
+        # Training time comparison
+        times = [final_results[m]['time'] for m in methods]
+        bars2 = axes[1].bar(methods, times, color=colors[:len(methods)], alpha=0.8, edgecolor='black')
+
+        axes[1].set_ylabel('Training Time (seconds)', fontsize=12, fontweight='bold')
+        axes[1].set_title('Training Time Comparison', fontsize=14, fontweight='bold')
+        axes[1].grid(axis='y', alpha=0.3, linestyle='--')
+        axes[1].tick_params(axis='x', rotation=25)
+
+        # Add value labels on bars
+        for bar in bars2:
+            height = bar.get_height()
+            axes[1].text(bar.get_x() + bar.get_width()/2., height,
+                        f'{height:.1f}s',
+                        ha='center', va='bottom', fontweight='bold', fontsize=9)
+
+        plt.tight_layout()
+        plt.savefig('transformer_metaheuristic_comparison.png', dpi=300, bbox_inches='tight')
+        print("Plot saved as 'transformer_metaheuristic_comparison.png'")
+    except ImportError:
+        print("Matplotlib not installed or failed to plot. Skipping visualization.")
+
+
     # Phase 2: Parameter & Explainability Optimization
     print("\n--- Phase 2: XAI Optimization ---")
     
@@ -174,20 +225,7 @@ def main():
 
     # LIME Parameter Optimization
     print("\nOPTIMIZING LIME PARAMETERS...")
-    
-    # We need to decode some text for LIME
-    # The preprocessor encodes, but we also need raw text for LIME
-    # Ideally, we should pass the raw text to main or reload it. 
-    # For now, we will use a small sample from validation set logic reused or re-fetched.
-    # To keep it simple and perfectly matching the original logic, we should probably modify `load_data` to return text too 
-    # or just accept that we need to reverse engineer or re-load.
-    # The original script reused variables. The easiest way here is to grab some dummy text or reload.
-    # Since we can't easily access the raw text from X_val without the original list, 
-    # lets assume we can get it from the dataset again or just make `load_data` return it.
-    # Actually, `load_data` returns encodings.
-    # Let's modify `load_data` return if needed? Or just re-load for XAI sample.
-    
-    # Simple fix: Re-load a few samples for XAI
+   
     from datasets import load_dataset
     dataset = load_dataset('sh0416/ag_news', split='test[:10]')
     test_samples = [item['title'] + ' ' + item['description'] for item in dataset]
